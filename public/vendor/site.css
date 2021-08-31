@@ -1,0 +1,544 @@
+html,
+body {
+    height: 100%;
+    font-family: 'Montserrat';
+}
+
+body.login-splash{
+    background: #FFFFFF;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 0px 15px 20px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #252931;
+    padding-top: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #FFF;
+    text-align: center;
+}
+
+.footer a:hover{
+    color: #095FCD;
+    opacity: 0.8;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+/* align the logout "link" (button in form) of the navbar */
+.nav li > form > button.logout {
+    padding: 15px;
+    border: none;
+}
+
+@media(max-width:767px) {
+    .nav li > form > button.logout {
+        display:block;
+        text-align: left;
+        width: 100%;
+        padding: 10px 15px;
+    }
+}
+
+.nav > li > form > button.logout:focus,
+.nav > li > form > button.logout:hover {
+    text-decoration: none;
+}
+
+.nav > li > form > button.logout:focus {
+    outline: none;
+}
+
+/*  CUSTOM  */
+
+a.navbar-brand{
+    color: #095FCD !important;
+    font-size: 32px;
+    letter-spacing: -2px;
+    padding: 22px 15px;
+}
+
+a.navbar-brand span{
+    color: #9A9A9A;
+}
+
+
+.nav li > form > button.logout {
+    padding: 22px 15px;
+    border: none;
+}
+
+.jumbotron-certiweb{
+    background: url(http://certiweb.co/wp-content/uploads/2015/06/certiweb.jpg);
+    background-size: cover;
+    background-position: center center;
+    margin-top: 50px;
+    color: #FFFFFF;
+}
+
+.jumbotron-internal{
+    background: #095FCD;
+    background-position: center center;
+    margin-top: 65px;
+    margin-bottom: 50px;
+    color: #FFFFFF;
+    padding: 15px 0;
+}
+
+.jumbotron-certiweb h1, .jumbotron-internal h1{
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.jumbotron-certiweb p{
+    font-size: 14px;
+}
+
+.jumbotron .container {
+    max-width: 50%;
+}
+
+.wrap.home > .container {
+    padding: 0px 15px 20px;
+}
+
+.icon-entry img {
+    float: left;
+    width: 70px;
+    height: 70px;
+}
+
+.icon-entry .content {
+    margin: 0 25px 0 85px;
+}
+
+.icon-entry .title{
+    font-family: 'Montserrat', sans-serif, Arial;
+    font-size: 15px;
+    line-height: 18px;
+    color: #232c3b;
+    font-weight: 600;
+    margin-top: 0px;
+}
+
+.icon-entry .text{
+    font-size: 12px;
+    line-height: 22px;
+    color: #6a7483;
+}
+
+.row-modules{
+    margin-bottom: 45px;
+}
+
+.heading h2{
+    font-family: 'Montserrat', sans-serif, Arial;
+    font-size: 32px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    color: #232c3b;
+    font-weight: 600;
+    letter-spacing: -2px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+a{
+    color: #fff;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #095FCD !important;
+}
+
+.list-group-item.active > .badge, .nav-pills > .active > a > .badge {
+    color: #095FCD !important;
+}
+
+ul.kv-sidenav li.active ul.nav-pills li.active a{
+    background-color: #ffd4c1 !important;
+    color: #095FCD !important;
+}
+
+.nav-stacked > li + li {
+    margin-top: 0px;
+}
+
+.badge{
+    background-color: #d80b2f;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+#login-wrapper {
+    top: 0 !important;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    height: 100%;
+    font-family: 'Roboto';
+}
+
+#login-wrapper .row{
+    width: 100%;
+    height: 100%;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+
+}
+
+#login-wrapper .panel {
+    margin-bottom: 20px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
+    top: 30%;
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+}
+
+#login-wrapper .brand-wrapper{
+    margin-bottom: 5%;
+}
+
+#login-wrapper  a.navbar-brand {
+    font-family: 'Montserrat';
+    float: none;
+    padding: 0px;
+    }
+
+#login-wrapper .panel-heading .panel-title{
+    font-size: 30px;
+    font-family: 'Roboto';
+    font-weight: 100;
+}
+
+#login-wrapper .panel-default > .panel-heading {
+    color: #FFFFFF;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+#login-wrapper .panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.col-color{
+    background: #0A4390;
+    color: #FFFFFF;
+    height: 100%;
+}
+
+#login-wrapper  .form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #FFF;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    border-bottom: 1px solid #FFF;
+    border-radius: 0px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    font-family: 'Roboto';
+    font-weight: 400;
+}
+
+#login-wrapper  .form-control::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #FFF;
+    margin-left: 0px;
+    text-indent: 0px;
+    padding-left: 0px;
+    opacity: 0.9;
+    font-size: 13px;
+}
+
+#login-wrapper .btn{
+    background: #FFF;
+    border-radius: 0px;
+    border: none;
+    color: #357ca5;
+}
+
+#login-wrapper .panel.intro{
+    color: #FFF;
+    font-family: 'Roboto';
+    margin-top: 10%;
+}
+
+#login-wrapper .panel.intro h2{
+    font-size: 45px;
+    font-weight: 100;
+}
+
+#login-wrapper .panel.intro h2{
+    font-size: 50px;
+    font-weight: 100;
+    color: #313131;
+    margin-bottom: 0px;
+}
+
+#login-wrapper .panel.intro h4{
+    font-size: 28px;
+    font-weight: 100;
+    color: #313131;
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+
+#login-wrapper .panel.intro p,
+#login-wrapper .panel.intro ul li{
+    font-size: 14px;
+    font-weight: 100;
+    color: #313131;
+    line-height: 166%;
+}
+
+#login-wrapper  .forgot-password{
+    color: #ffffff;
+    margin-top: 15px;
+    text-decoration: none;
+    opacity: 0.8;
+        margin-right: 30px;
+}
+
+#login-wrapper  .forgot-password:hover{
+    opacity: 1;
+}
+
+.registration-block a{
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    color: #FFFFFF;
+    background: #095FCD;
+    margin: 10px auto 0 auto;
+    display: table;
+    text-decoration: none;
+}
+
+.registration-block a:hover{
+    opacity: 0.6;
+    }
+
+.radio label, .checkbox label{
+    font-family: 'Roboto';
+    font-weight: 200;
+}
+
+.field-loginform-rememberme{
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.list-news .item figure{
+    width: 100%;
+    height: 195px;
+    display: block;
+}
+
+.list-news .item .item-excerpt,
+.noticias-view{
+    font-weight: 100;
+    font-family: 'Open sans';
+    font-size: 13px;
+}
+
+.noticias-view p{
+    margin: 25px 0;
+    font-size: 14px;
+}
+
+.list-news h2{
+    font-size: 17px;
+}
+
+.list-news .image-container{
+    margin: 20px 0;
+}
+
+/* CUSTOM */
+.skin-red .main-header .logo {
+    background-color: #FD601A !important;
+}
+
+.skin-red .main-header .navbar {
+    background-color: #fd7233 !important;
+}
+
+.notifications-menu .fa-bell-o{
+    font-size: 22px;
+}
+
+.notifications-menu a.dropdown-toggle{
+    padding: 13px;
+}
+
+.notifications-menu .label-warning {
+    top: 5px;
+    right: 5px;
+    font-size: 9px;
+    padding: 5px 5px;
+    background-color: #55c2e4 !important;
+}
+
+.logo-lg img{
+    width: 65%;
+    vertical-align: text-bottom;
+}
+
+.user-registration .form-group {
+    margin-bottom: 0px;
+}
+
+.user-registration{
+    padding: 40px 40px !important;
+}
+
+.dropdown-menu .footer{
+    height: auto;
+    background-color: transparent;
+    padding-top: 0;
+}
+
+.user-registration .form-control,
+.user-registration .form-control:focus{
+
+    font-size: 14px;
+    line-height: 38px;
+    width: 100%;
+    height: 38px;
+    padding: 0 20px;
+    resize: vertical;
+    color: #6a7483;
+    border: 1px solid #ececec;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    -webkit-box-shadow: 1px 1px 2px rgba(0,0,0,.2);
+    box-shadow: 1px 1px 2px rgba(0,0,0,.2);
+}
+
+.btn-certiweb {
+    background-color: #fd601a;
+    border-color: #fd7233;
+    color: #FFFFFF;
+}
+
+.grid-view{
+    overflow-y: scroll;
+}
+
+.skin-green .main-header .navbar,
+.skin-green .main-header li.user-header {
+    background-color: #8CAF00 !important;
+}
+
+.skin-green .main-header .logo{
+    background-color: #7f9e01 !important;
+}
+
+.skin-green .sidebar-menu>li:hover>a, .skin-green .sidebar-menu>li.active>a {
+    border-left-color: #8CAF00;
+}
