@@ -103,15 +103,8 @@
 
                 <td><input type="text" placeholder="Fecha Emision" class="form-control" name="fecha_emision" title="Año-Mes-Día, o solo el año para ver las facturas de determinado año, o año-mes"/></td>
                 <td><input type="text" placeholder="Vencimiento" class="form-control" name="vencimiento" title="Año-Mes-Día, o solo el año para ver las facturas de determinado año, o año-mes"/></td>
-                <td><input type="text" class="form-control" placeholder="Ejecutado Fecha" name="ejecutado_fecha" maxlength="155"></td>
-                <td><input type="text" class="form-control" placeholder="Saldo (Vlr fecha)" name="saldo" maxlength="155"></td>        
-                <td><button type="submit" class="btn btn-primary">
-                  <i class="fa fa-fw fa-search"></i></button></td>
-              </form>
-            </tr>
-          </thead>
-          <tbody>
-          <td><div class="dropdown">
+                <!--<td><input type="text" class="form-control" placeholder="Ejecutado Fecha" name="ejecutado_fecha" maxlength="155"></td>-->
+                <td><div class="dropdown">
                 <button class="btn btn-warning" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Mas
                   <span class="caret"></span>
@@ -180,8 +173,7 @@
                           <td>APROBADA</td>
                           <td></td>
                           <td>PAGADA</td>
-                          <td></td>
-                          <td></td>
+                          <td><div class="btn btn-primary">click</div></td>
                         </tr>
                     </tbody>
                   </table>
@@ -190,6 +182,14 @@
               </div>
               </td>
               </div> 
+                <td><input type="text" class="form-control" placeholder="Saldo (Vlr fecha)" name="saldo" maxlength="155"></td>      
+                <td><button type="submit" class="btn btn-primary">
+                  <i class="fa fa-fw fa-search"></i></button></td>
+              </form>
+            </tr>
+          </thead>
+          <tbody>
+          
         @foreach ($facturas as $factura)
         <tr data-key="169">
           <td>{{$factura->nombre_empresa}}</td>
@@ -214,4 +214,15 @@
       </div>
       </div>
   </div>
+  <!--Ancho de caja-->
+  <script type="text/javascript">
+    const cajaPadre = document.getElementsByClassName("seguimiento-facturas-index");
+    const tabla = document.getElementsByClassName("dropdown-menu");
+    tabla[0].style = "transform(translateX(-100px))";
+    setInterval(()=>{
+      let anchoCaja = cajaPadre[0].clientWidth;
+      tabla[0].style.width = `${anchoCaja - 20}px`;
+      tabla[0].style.transform = `translateX(-${73.5/100*anchoCaja}px)`;
+    },100)
+  </script>
 @stop
