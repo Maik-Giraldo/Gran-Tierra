@@ -432,12 +432,6 @@ return [
             'url'        => 'soporte',
         ],
         [
-            'text'          => 'Actualizar mis datos',
-            'icon'          => 'wpforms',
-            'icon_color'    => 'white',
-            'url'           => 'actualizar-mis-datos',
-        ],
-        [
             'text'          => 'Documento Soporte',
             'icon'          => 'file-text',
             'icon_color'    => 'white',

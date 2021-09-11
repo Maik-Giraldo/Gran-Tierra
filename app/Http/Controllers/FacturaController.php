@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\Validator;
 use Excel;
 use Session;
 use App\Factura;
+use App\HojaEntrada;
+use App\Retenciones;
 use App\Empresa;
-use Config;
+use Config; 
 use DB;
 use Auth;
+use Throwable;
 
 class FacturaController extends Controller
 {
@@ -105,15 +108,22 @@ class FacturaController extends Controller
 
   public function sgfindex()
   {
+    try {
       if(Auth::user()->role_id == 4 ){
-      $facturas = Factura::sortable()->join('empresa', 'seguimiento_facturas.id_empresa', '=', 'empresa.id_empresa')->where('empresa.id_grupo_empresa',1)->orderBy('id','desc')->paginate(20);
-      $empresas = Empresa::where('id_grupo_empresa', 1)->orderBy('id_empresa')->get();
-      return view('sgf.facturaindex', compact('facturas', 'empresas'));
-    } else {
-        $facturas = Factura::sortable()->join('empresa as enterprise', 'seguimiento_facturas.id_empresa', '=', 'enterprise.id_empresa')->where('enterprise.id_grupo_empresa',1)->where('nit','=',Auth::user()->Nit)->orderBy('id','desc')->paginate(20);
-        $empresas = Empresa::where('id_grupo_empresa', 1)->orderBy('nombre_empresa')->get();
-        return view('sgf.facturaindexp', compact('facturas','empresas'));
-    }
+        $transacciones = Factura::sortable()->join('empresa', 'seguimiento_transaccional.id_empresa', '=', 'empresa.id_empresa')->where('empresa.id_grupo_empresa',1)->orderBy('id','desc')->paginate(20);
+        $empresas = Empresa::where('id_grupo_empresa', 1)->orderBy('id_empresa')->get();
+        return view('sgf.facturaindex', compact('transacciones', 'empresas'));
+      } else {
+          $transacciones = Factura::sortable()->join('empresa as enterprise', 'seguimiento_transaccional.id_empresa', '=', 'enterprise.id_empresa')->where('enterprise.id_grupo_empresa',1)->where('nit','=',Auth::user()->Nit)->orderBy('id','desc')->paginate(20);
+          
+          
+          $empresas = Empresa::where('id_grupo_empresa', 1)->orderBy('nombre_empresa')->get();
+          return view('sgf.facturaindexp', compact('transacciones','empresas'));
+      }
+    } catch(Throwable $th){
+      return $th;
+    };
+      
   }
   public function sgfhist()
   {

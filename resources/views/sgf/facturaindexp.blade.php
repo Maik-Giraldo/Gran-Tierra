@@ -3,13 +3,142 @@
 @section('title', 'Certiweb | Demo')
 
 @section('content_header')
-    <h1>Seguimiento de Facturas</h1>
+    <h1>Seguimiento transaccional</h1>
     <ul class="breadcrumb"><li><a href="home">Inicio</a></li>
-    <li class="active">Seguimiento de Facturas</li>
+    <li class="active">Seguimiento transaccional</li>
     </ul>
 @stop
 
 @section('content')
+
+<script type="text/javascript">
+  /* 
+      transaccion[0] = filas de tabla certificados en el siguiente orden: ica, iva, rtf, rete ica, Vlr neto. en array
+      transaccion de 1 a 11 = datos de tabla principal en el siguiente orden: #HE, valor HE, aprobado, #FRA, Vlr FRA, Fecha rec, vencimiento, Fecha apr, retenciones, Fecha de pago, Vlr neto
+      [
+        [
+          [['ICA1', 'IVA1', 'RTF1', 'RETE ICA1', 'VALOR NETO1'], ['ICA1', 'IVA1', 'RTF1', 'RETE ICA1', 'VALOR NETO1']], 
+          ['1', 'VALOR HE1', 'APROBADO1', '#FRA1', 'VALOR FRA1','FECHA REC1', 'VENCIMIENTO1', 'FECHA APR1', 'RETENCIONES1', 'FECHA PAGO1', 'VLR NETO PAGADO1']], 
+          [ 
+            [['ICA2', 'IVA2', 'RTF2', 'RETE ICA2', 'VALOR NETO2'], ['ICA2', 'IVA2', 'RTF2', 'RETE ICA2', 'VALOR NETO2']
+          ], ['2', 'VALOR HE', 'APROBADO', '#FRA', 'VALOR FRA', 'FECHA REC', 'VENCIMIENTO', 'FECHA APR', 'RETENCIONES', 'FECHA PAGO', 'VLR NETO PAGADO']
+        ]
+      ]
+    */
+    function cajaPrincipal(transaccion=[], idContenedor, ejecutado_fecha){
+      let docTransaccion = "";
+      const contenedor = document.getElementById(`${idContenedor}`);
+      contenedor.innerHTML = ""; 
+      
+      transaccion.forEach((lista)=>{
+        let certificados = "";
+        let datosPrincipal = "";
+        let contador = 0;
+        let contadorFilas = 0;
+        let idFilas = 0;
+        lista[1].forEach((datoTabla1)=>{
+          if (contador != 0){
+            datosPrincipal+=`<td>$${datoTabla1}</td>`; 
+          }else{
+            idFilas = datoTabla1;
+          }
+          contador++;
+        });
+        
+        lista[0].forEach((datoTabla2)=>{
+          certificados+=`<tr>
+                          <th scope="row">${datoTabla2[0]}</th>
+                          <td>$${datoTabla2[1]}</td>
+                          <td>$${datoTabla2[2]}</td>
+                          <td>$${datoTabla2[3]}</td>
+                          <td>$${datoTabla2[4]}</td>
+                          <td>$${datoTabla2[5]}</td>
+                        </tr>`;
+        });
+
+        docTransaccion+=`<tr>
+                        <th scope="row">
+                        <button class="btn btn-warning" id="dLabel" type="button" onclick="cambio('table-${idFilas}-s-${idContenedor}')" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              ${idFilas}
+                            <span class="caret"></span>
+                          </button>
+                            <ul class="dropdown-custom subtabla" id="table-${idFilas}-s-${idContenedor}" aria-labelledby="dLabel">
+                          <div class="panel panel-default">
+                          
+                            <div class="panel-heading text-center">Retenciones</div>
+
+                            
+                            <table class="table">
+                              <thead>
+                                  <tr>
+                                    <th>Valor Factura</th>
+                                    <th>ICA</th>
+                                    <th>IVA</th>
+                                    <th>RTF</th>
+                                    <th>RETN MUNICIPAL</th>
+                                    <th>VLR NETO</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                ${certificados}
+                              </tbody>
+                            </table>
+                          </div>
+                          </ul>
+                        </th>
+                          ${datosPrincipal}
+                        </tr>`;
+      });
+
+      const contenedorPrincipal = `<div class="dropdown">
+                <button class="btn btn-warning" id="dLabel" type="button" onclick="cambio('table-${idContenedor}')" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ${ejecutado_fecha}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-custom" id="table-${idContenedor}" aria-labelledby="dLabel">
+                <div class="panel panel-default">
+                
+                  <div class="panel-heading text-center">Momentos</div>
+
+                  
+                  <table class="table">
+                    <thead>
+                        <tr>
+                          <th>#HE</th>
+                          <th>Valor HE</th>
+                          <th>Aprobado</th>
+                          <th>#FRA</th>
+                          <th>Vlr FRA</th>
+                          <th>Fecha Rec</th>
+                          <th>Vencimiento</th>
+                          <th>Fecha Apr</th>
+                          <th>Retenciones</th>
+                          <th>Fecha de pago</th>
+                          <th>Vlr Neto Pagado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${docTransaccion}
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="warning"></td>
+                        <td class="warning">RECIBIDA</td>
+                        <td class="warning"></td>
+                        <td class="info">APROBADA</td>
+                        <td class="info"></td>
+                        <td class="success"></td>
+                        <td class="success">PAGADA</td>
+                    </tbody>
+                  </table>
+                </div>
+                </ul>
+              </div>`;
+      contenedor.innerHTML = contenedorPrincipal; 
+    };
+</script>
+
 <div class="box box-warning">
       <div class="box-header with-border">
         <h3 class="box-title"><i class="fa fa-list"></i> Consulta de Facturas por Rangos de Fecha</h3>
@@ -28,9 +157,9 @@
                   <select class="form-control" id="pdesde" name="id_empresa" required>
                      <option value="">Empresa..</option>
                      <option value="todas">Todas</option>
-                      @foreach ($empresas as $empresa)
+                      @forEach ($empresas as $empresa)
                         <option value="{{$empresa->id_empresa}}">{{$empresa->nit_empresa}}-{{$empresa->nombre_empresa}}</option>
-                      @endforeach
+                      @endforEach
                   </select>
                </div>
                <div class="col-xs-3">
@@ -70,8 +199,8 @@
       <div id="w0" data-pjax-container="" data-pjax-push-state data-pjax-timeout="1000">
         <div id="w1" style="font-size:12px;">
           <div class="summary">Mostrando
-            <strong>{{($facturas->currentpage()-1)*$facturas->perpage()+1}}-{{$facturas->currentpage()*$facturas->perpage()}}</strong>
-              de  <strong>{{$facturas->total()}}</strong> elementos</div>
+            <strong>{{($transacciones->currentpage()-1)*$transacciones->perpage()+1}}-{{$transacciones->currentpage()*$transacciones->perpage()}}</strong>
+              de  <strong>{{$transacciones->total()}}</strong> elementos</div>
           <table class="table table-striped table-bordered"><thead>
             <tr>
             <tr>
@@ -81,7 +210,7 @@
               <th>@sortablelink('valor_total', 'Valor Total')</th>
               <th>@sortablelink('fecha_emision', 'Fecha Emision')</th>
               <th>@sortablelink('vencimiento', 'Vencimiento')</th>
-              <th>@sortablelink('ejecutado_fecha', 'Ejecutado a la fecha')</th>            
+              <th>@sortablelink('ejecutado_fecha', 'Ejecutado a la fecha')</th>
               <th>@sortablelink('saldo', 'Saldo (Vlr ejecutado)')</th>
               <!-- <th class="action-column"><a href="#"></a></th> -->
             </tr>
@@ -90,9 +219,9 @@
                 <td>
             		<select class="form-control" id="sociedad" name="sociedad">
                 		<option value="" selected="selected" disabled="disabled">Empresa..</option>
-                      	@foreach ($empresas as $empresa)
+                      	@forEach ($empresas as $empresa)
                         <option value="{{$empresa->nombre_empresa}}">{{$empresa->nombre_empresa}}</option>
-                      	@endforeach
+                      	@endforEach
                			<option value="">Todas</option>
                   	</select>
                 </td>
@@ -103,85 +232,8 @@
 
                 <td><input type="text" placeholder="Fecha Emision" class="form-control" name="fecha_emision" title="Año-Mes-Día, o solo el año para ver las facturas de determinado año, o año-mes"/></td>
                 <td><input type="text" placeholder="Vencimiento" class="form-control" name="vencimiento" title="Año-Mes-Día, o solo el año para ver las facturas de determinado año, o año-mes"/></td>
-                <!--<td><input type="text" class="form-control" placeholder="Ejecutado Fecha" name="ejecutado_fecha" maxlength="155"></td>-->
-                <td><div class="dropdown">
-                <button class="btn btn-warning" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Mas
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dLabel">
-                <div class="panel panel-default">
-                
-                  <div class="panel-heading text-center">Momentos</div>
-
-                  
-                  <table class="table">
-                    <thead>
-                        <tr>
-                          <th>#HE</th>
-                          <th>Valor HE</th>
-                          <th>Aprobado</th>
-                          <th>#FRA</th>
-                          <th>Vlr FRA</th>
-                          <th>Fecha Rec</th>
-                          <th>Vencimiento</th>
-                          <th>Vlr FRA</th>
-                          <th>Fecha Apr</th>
-                          <th>Retenciones</th>
-                          <th>Fecha de pago</th>
-                          <th>Vlr Neto Pagado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>A</td>
-                          <td>500.000</td>
-                          <td>S</td>
-                          <td>1</td>
-                          <td>500.000</td>
-                          <td>15/02/2021</td>
-                          <td>26/03/2021</td>
-                          <td>16-feb</td>
-                          <td>55.000</td>
-                          <td>29-mar</td>
-                          <td>445.000</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                          <td>B</td>
-                          <td>1.000.000</td>
-                          <td>S</td>
-                          <td>3</td>
-                          <td>1.000.000</td>
-                          <td>18/03/2021</td>
-                          <td>26/04/2021</td>
-                          <td>19-mar</td>
-                          <td>110.000</td>
-                          <td>30-abr</td>
-                          <td>890.000</td>
-                        </tr>
-                        <tr class="info">
-                          <th scope="row"></th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>RECIBIDA</td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>APROBADA</td>
-                          <td></td>
-                          <td>PAGADA</td>
-                          <td><div class="btn btn-primary">click</div></td>
-                        </tr>
-                    </tbody>
-                  </table>
-                </div>
-                </ul>
-              </div>
-              </td>
-              </div> 
+                <td><input type="text" class="form-control" placeholder="Ejecutado Fecha" name="ejecutado_fecha" maxlength="155"></td>
+                <td></td>
                 <td><input type="text" class="form-control" placeholder="Saldo (Vlr fecha)" name="saldo" maxlength="155"></td>      
                 <td><button type="submit" class="btn btn-primary">
                   <i class="fa fa-fw fa-search"></i></button></td>
@@ -190,39 +242,75 @@
           </thead>
           <tbody>
           
-        @foreach ($facturas as $factura)
+        @forEach ($transacciones as $transaccion)
         <tr data-key="169">
-          <td>{{$factura->nombre_empresa}}</td>
-          <td>{{$factura->nombre_proveedor}}</td>
-          <td><a href="{{url('seguimiento-facturas/ver-id='.$factura->id)}}">{{$factura->numero_factura}}</a></td>
-          <td>{{$factura->fecha_factura}}</td>
-          <td>{{date('Y-m-d', strtotime($factura->fecha_pago))}}</td>
-          <td>${{number_format(floatval($factura->valor_total),0,',','.')}}</td>
-          <td>${{number_format(floatval($factura->valor_a_pagar),0,',','.')}}</td>
-          <td>{{$factura->estado}}</td>
-          <td><a href="{{url('seguimiento-facturas/ver-id='.$factura->id)}}"
+          <td>{{$transaccion->nombre_empresa}}</td>
+          <td>{{$transaccion->doc_compra}}</td>
+          <td>{{$transaccion->administrador_contrato}}</td>
+          <td>${{number_format(floatval($transaccion->valor_total),0,',','.')}}</td>
+          <td>{{date('Y-m-d', strtotime($transaccion->fecha_emision))}}</td>
+          <td>{{date('Y-m-d', strtotime($transaccion->vencimiento))}}</td>
+          <td><div id="{{$transaccion->id}}"></div>
+          <script>
+                  cajaPrincipal(transaccion = [ [ [['1.500.000', '100.000', '3.000', '40.000', '80.000', '1.000.000']], ['A', '500.000', 'S', '1', '500.000','15/02/2021', '26/03/2021', '16-Feb', '55.000', '29-Mar', '445.000']], [ [['1.500.000', '100.000', '3.000', '40.000', '80.000', '1.000.000']], ['B', '500.000', 'S', '1', '500.000','15/02/2021', '26/03/2021', '16-Feb', '55.000', '29-Mar', '445.000']]], idContenedor="{{$transaccion->id}}", ejecutado_fecha="{{$transaccion->ejecutado_fecha}}")  
+                </script>
+          </td>
+          <td>${{number_format(floatval($transaccion->saldo),0,',','.')}}</td>
+          <td><a href="{{url('seguimiento-facturas/ver-id='.$transaccion->id)}}"
             title="Ver Detalle" aria-label="Ver" data-pjax="0">
             Ver detalle
               </a>
           </td>
               </tr>
-        @endforeach
+        @endforEach
       </tbody>
       </table>
-  {{ $facturas->links() }}
+  {{ $transacciones->links() }}
       </div>
       </div>
       </div>
   </div>
+
+
   <!--Ancho de caja-->
   <script type="text/javascript">
     const cajaPadre = document.getElementsByClassName("seguimiento-facturas-index");
-    const tabla = document.getElementsByClassName("dropdown-menu");
+    const tabla = document.getElementsByClassName("dropdown-custom");
     tabla[0].style = "transform(translateX(-100px))";
+
+    function cambio(idTabla){
+      const tabla = document.getElementById(idTabla);
+      let estilo = tabla.style.display;
+      
+      if(estilo == "block"){
+        tabla.style.display = "none";
+      }else{
+        tabla.style.display = "block";
+      };
+    };
+
     setInterval(()=>{
       let anchoCaja = cajaPadre[0].clientWidth;
-      tabla[0].style.width = `${anchoCaja - 20}px`;
-      tabla[0].style.transform = `translateX(-${73.5/100*anchoCaja}px)`;
-    },100)
+      for(let i = 0; i < tabla.length; i++){
+        if(i%3 == 0){
+          tabla[i].style.width = `${anchoCaja - 20}px`;
+          tabla[i].style.transform = `translateX(-${74.5/100*anchoCaja}px)`;
+        };
+      };
+    },100);
+
+    
+
   </script>
+  <style type="text/css">
+    .dropdown-custom {
+      position:absolute;
+      display:none;
+      z-index: 1000;
+    }
+    .subtabla {
+      left: 100px;
+      padding: 0px;
+    }
+  </style>
 @stop
