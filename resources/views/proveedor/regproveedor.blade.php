@@ -4,10 +4,12 @@
 
 @section('content_header')
     <h1>Documentos de compra</h1>
-    <ul class="breadcrumb"><li><a href="home">Inicio</a></li>
+    <ul class="breadcrumb"><li><a href="home">Inicio</a>< /li>
       <li><a href="proveedores">Proveedores</a></li>
     <li class="active">>Documentos de compra</li>
     </ul>
+    <br>
+    <h4 class="aviso">Estimado proveedor, recuerde que para la correcta aceptación de sus facturas electrónicas es necesario que los 5 primeros días de cada mes, actualice la siguiente información.</h4>
 @stop
 
 @section('content')
@@ -90,4 +92,11 @@
 </div>
 </div>
 </div>
+
+<style type="text/css">
+    .aviso{
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
 @stop

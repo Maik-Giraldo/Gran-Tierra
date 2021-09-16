@@ -38,7 +38,11 @@
         let idFilas = 0;
         lista[1].forEach((datoTabla1)=>{
           if (contador != 0){
-            datosPrincipal+=`<td>$${datoTabla1}</td>`; 
+            if (contador == 1 || contador == 4 || contador == 8 || contador == 10){
+              datosPrincipal+=`<td>$${datoTabla1}</td>`;  
+            }else{
+              datosPrincipal+=`<td>${datoTabla1}</td>`;  
+            };
           }else{
             idFilas = datoTabla1;
           }
@@ -47,7 +51,7 @@
         
         lista[0].forEach((datoTabla2)=>{
           certificados+=`<tr>
-                          <th scope="row">${datoTabla2[0]}</th>
+                          <th scope="row">$${datoTabla2[0]}</th>
                           <td>$${datoTabla2[1]}</td>
                           <td>$${datoTabla2[2]}</td>
                           <td>$${datoTabla2[3]}</td>
@@ -92,7 +96,7 @@
 
       const contenedorPrincipal = `<div class="dropdown">
                 <button class="btn btn-warning" id="dLabel" type="button" onclick="cambio('table-${idContenedor}')" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  ${ejecutado_fecha}
+                  $${ejecutado_fecha}
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-custom" id="table-${idContenedor}" aria-labelledby="dLabel">
@@ -228,12 +232,9 @@
                 <td><input type="text" placeholder="Documento Compra" class="form-control" name="documento_compra" maxlength="100"></td>
                 <td><input type="number" placeholder="Contacto" class="form-control" name="administrador_contacto" maxlength="100"></td>
                 <td><input type="text" class="form-control" placeholder="Valor Total" name="valor_total" maxlength="155"></td>
-
-
                 <td><input type="text" placeholder="Fecha Emision" class="form-control" name="fecha_emision" title="Año-Mes-Día, o solo el año para ver las facturas de determinado año, o año-mes"/></td>
                 <td><input type="text" placeholder="Vencimiento" class="form-control" name="vencimiento" title="Año-Mes-Día, o solo el año para ver las facturas de determinado año, o año-mes"/></td>
-                <!--<td><input type="text" class="form-control" placeholder="Ejecutado Fecha" name="ejecutado_fecha" maxlength="155"></td>-->
-                <td></td>
+                <td><input type="text" class="form-control" placeholder="Ejecutado Fecha" name="ejecutado_fecha" maxlength="155"></td>
                 <td><input type="text" class="form-control" placeholder="Saldo (Vlr fecha)" name="saldo" maxlength="155"></td>      
                 <td><button type="submit" class="btn btn-primary">
                   <i class="fa fa-fw fa-search"></i></button></td>
@@ -294,7 +295,7 @@
       for(let i = 0; i < tabla.length; i++){
         if(i%3 == 0){
           tabla[i].style.width = `${anchoCaja - 20}px`;
-          tabla[i].style.transform = `translateX(-${74.5/100*anchoCaja}px)`;
+          tabla[i].style.transform = `translateX(-${72.5/100*anchoCaja}px)`;
         };
       };
     },100);

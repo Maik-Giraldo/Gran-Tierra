@@ -145,11 +145,6 @@ return [
                             'icon' => 'pencil-square-o',
                             'url'  => 'proveedor-create',
                         ],
-                        [
-                            'text' => 'Por revisar',
-                            'icon' => 'eye',
-                            'url'  => 'proveedores/sin-revisar',
-                        ],
                     ],
                 ],
                 [

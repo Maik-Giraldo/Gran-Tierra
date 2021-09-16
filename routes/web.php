@@ -49,16 +49,6 @@ Route::post('empresa/update-empresa', 'EmpresaController@actualizar')->name('act
 Route::get('/empresa/create/form', 'EmpresaController@createe')->name('createe');
 Route::post('/empresa/create/empresa', 'EmpresaController@crearempresa')->name('crearempresa');
 Route::get('/empresas', 'EmpresaController@listaremp')->name('listaremp');
-// Proveedores
-Route::get('/proveedores', 'ProveedorController@listar')->name('listar');
-Route::get('/proveedor-create', 'ProveedorController@crear')->name('crear');
-Route::post('/proveedor-create', 'ProveedorController@registrar')->name('registrar');
-Route::get('/proveedores/view-id={id}', 'ProveedorController@veruno')->name('veruno');
-Route::get('/proveedores/update-id={id}', 'ProveedorController@editar')->name('editar');
-Route::post('/updateprvdr', 'ProveedorController@actualizar')->name('actualizar');
-Route::get('/ajaxdelrprvdr-{id}', 'ProveedorController@deleteoneprv')->name('deleteoneprv');
-Route::get('/proveedores/sin-revisar', 'ProveedorController@sinrevisar')->name('sinrevisar');
-Route::get('/proveedores/search', 'ProveedorController@buscar')->name('buscar');
 //Ica
 Route::get('/ica-import', 'IcaController@icaimport')->name('icaimport');
 Route::post('/upload-ica', 'IcaController@uploadica')->name('uploadica');
@@ -189,3 +179,14 @@ Route::post('/cambiarclave','HomeController@cambiaclave')->name('cambiarclave');
 Route::get('/actualizar-mis-datos', 'HomeController@infoproveedor')->name('inscripcion-proveedor');
 Route::get('/actualizar-mis-datos/info', 'ProveedorController@editiproveedor')->name('editiproveedor');
 Route::post('/actualizarmisdatos', 'ProveedorController@actualizar')->name('actualizar');
+
+// Proveedores
+Route::get('/proveedores', 'ProveedorController@listar')->name('listar');
+Route::get('/proveedor-create', 'ProveedorController@crear')->name('crear');
+Route::post('/proveedor-create', 'ProveedorController@registrar')->name('registrar');
+Route::get('/proveedores/view-id={id}', 'ProveedorController@veruno')->name('veruno');
+Route::get('/proveedores/update-id={id}', 'ProveedorController@editar')->name('editar');
+Route::post('/updateprvdr', 'ProveedorController@actualizar')->name('actualizar');
+Route::get('/ajaxdelrprvdr-{id}', 'ProveedorController@deleteoneprv')->name('deleteoneprv');
+Route::get('/proveedores/sin-revisar', 'ProveedorController@sinrevisar')->name('sinrevisar');
+Route::get('/proveedores/search', 'ProveedorController@buscar')->name('buscar');

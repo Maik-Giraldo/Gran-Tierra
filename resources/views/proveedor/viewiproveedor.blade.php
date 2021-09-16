@@ -3,11 +3,11 @@
 @section('title', 'Certiweb | Demo')
 
 @section('content_header')
-    <h1>Ver Proveedor : {{$razon_social}}</h1>
+    <h1>Ver Documentos de compra : {{$razon_social}}</h1>
     <ul class="breadcrumb">
     <li><a href="home">Inicio</a></li>
-    <li><a href="../proveedores">Proveedores</a></li>
-    <li class="active">Ver Proveedor: {{$razon_social}}</li>
+    <li><a href="../proveedores">Documentos de compra</a></li>
+    <li class="active">Ver Documentos de compra: {{$razon_social}}</li>
     </ul>
 @stop
 

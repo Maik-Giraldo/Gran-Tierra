@@ -3,16 +3,16 @@
 @section('title', 'Certiweb | Demo')
 
 @section('content_header')
-    <h1>Proveedores</h1>
+    <h1>Documentos de compra</h1>
     <ul class="breadcrumb"><li><a href="home">Inicio</a></li>
-    <li class="active">Proveedores</li>
+    <li class="active">Documentos de compra</li>
     </ul>
 @stop
 
 @section('content')
 <div class="box box-warning">
   <div class="proveedores-index box-body">
-    <p><a class="btn btn-success" href="proveedor-create">Crear Proveedor</a></p>
+    <!-- <p><a class="btn btn-success" href="proveedor-create">Crear Proveedor</a></p> -->
     <div id="w0" class="grid-view">
       <div class="summary">Mostrando
         <strong>{{($proveedores->currentpage()-1)*$proveedores->perpage()+1}}-{{$proveedores->currentpage()*$proveedores->perpage()}}</strong>
