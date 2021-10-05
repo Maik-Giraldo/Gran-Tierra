@@ -153,7 +153,7 @@ return [
                     'url'     => '#',
                     'submenu' => [
                         [
-                            'text' => 'Ver',
+                            'text' => 'Listar',
                             'icon' => 'eye',
                             'url'  => 'seguimiento-facturas',
                         ],
@@ -165,21 +165,10 @@ return [
                     ],
                 ],
                 [
-                    'text'    => 'Aceptaciòn Ticket',
-                    'icon'    => 'file-text',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Ver',
-                            'icon' => 'eye',
-                            'url'  => 'aceptacion-ticket',
-                        ],
-                        [
-                            'text' => 'Ver',
-                            'icon' => 'eye',
-                            'url'  => '#',
-                        ],
-                    ],
+                    'text'          => 'Aceptación de ticket',
+                    'icon'          => 'file-text',
+                    'icon_color'    => 'white',
+                    'url'           => 'documento-soporte',
                 ],
                 [
                     'text'    => 'Certificados Tributarios',
@@ -425,12 +414,6 @@ return [
             'icon'       => 'life-ring',
             'icon_color' => 'white',
             'url'        => 'soporte',
-        ],
-        [
-            'text'          => 'Documento Soporte',
-            'icon'          => 'file-text',
-            'icon_color'    => 'white',
-            'url'           => 'documento-soporte',
         ],
         [
             'text'          => 'Editar mi Perfil',

@@ -5,7 +5,7 @@
 @section('content_header')
     <h1>Documentos de compra</h1>
     <ul class="breadcrumb"><li><a href="home">Inicio</a>< /li>
-      <li><a href="proveedores">Proveedores</a></li>
+      <li><a href="proveedores">Documentos de compra</a></li>
     <li class="active">>Documentos de compra</li>
     </ul>
     <br>
@@ -51,7 +51,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <div class="form-group field-proveedor-doc_certificado_existencia_representacion required">
-<label class="control-label" for="proveedor-doc_certificado_existencia_representacion">Certificados de Existencia y Representación menor a 30 días (recuerde cargar en el mes vigente)</label>
+<label class="control-label" for="proveedor-doc_certificado_existencia_representacion">Certificados de Existencia y Representación menor a 90 días (recuerde cargar en el mes vigente)</label>
 <input id="doc_certificado_existencia_representacion-id" name="doc_certificado_existencia_representacion" type="file" class="file" data-preview-file-type="pdf"> <br>
 <div class="help-block"></div>
 </div>                    </div>

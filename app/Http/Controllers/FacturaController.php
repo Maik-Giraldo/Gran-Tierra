@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+// use Illuminate\Support\Facades\DB as $db;
 use Illuminate\Support\Facades\Validator;
 use Excel;
 use Session;
@@ -109,22 +110,43 @@ class FacturaController extends Controller
   public function sgfindex()
   {
     try {
+      $role_id = Auth::user()->role_id;
+      $nit = Auth::user()->Nit;
       if(Auth::user()->role_id == 4 ){
         $transacciones = Factura::sortable()->join('empresa', 'seguimiento_transaccional.id_empresa', '=', 'empresa.id_empresa')->where('empresa.id_grupo_empresa',1)->orderBy('id','desc')->paginate(20);
         $empresas = Empresa::where('id_grupo_empresa', 1)->orderBy('id_empresa')->get();
-        return view('sgf.facturaindex', compact('transacciones', 'empresas'));
+        return view('sgf.facturaindex', compact('transacciones', 'empresas', 'role_id', 'nit'));
       } else {
           $transacciones = Factura::sortable()->join('empresa as enterprise', 'seguimiento_transaccional.id_empresa', '=', 'enterprise.id_empresa')->where('enterprise.id_grupo_empresa',1)->where('nit','=',Auth::user()->Nit)->orderBy('id','desc')->paginate(20);
-          
-          
           $empresas = Empresa::where('id_grupo_empresa', 1)->orderBy('nombre_empresa')->get();
-          return view('sgf.facturaindexp', compact('transacciones','empresas'));
+          return view('sgf.facturaindexp', compact('transacciones','empresas', 'role_id', 'nit'));
       }
     } catch(Throwable $th){
       return $th;
     };
       
   }
+
+  //API sgfindex
+  public function apisgfindex($rol, $nit)
+  {
+    try {
+      if(str_contains($nit, "'") || str_contains($rol, "'")){
+        return null;
+      };
+      if($rol == 4 ){
+        $hoja_entrada = DB::select("SELECT he.*, st.nit FROM hoja_entrada he, seguimiento_transaccional st WHERE st.nit = $nit");
+        return $hoja_entrada;
+      } else {
+        $hoja_entrada = DB::select("SELECT he.*, st.nit FROM hoja_entrada he, seguimiento_transaccional st WHERE st.nit = $nit");
+          return $hoja_entrada;
+      }
+    } catch(Throwable $th){
+      return $th;
+    };
+      
+  }
+
   public function sgfhist()
   {
       if(Auth::user()->role_id == 4 ){

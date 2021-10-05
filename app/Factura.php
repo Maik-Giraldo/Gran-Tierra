@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Kyslik\ColumnSortable\Sortable;
 
 class Factura extends Model
-{
+{ 
     use Sortable;
     protected $table = 'seguimiento_transaccional';
     protected $primaryKey = 'id';
@@ -22,17 +22,6 @@ class Factura extends Model
         'ejecutado_fecha',
         'valor_total',
         'saldo',
-        'he',
-        'valor_he',
-        'aprobado',
-        'fra',
-        'valor_fra',
-        'fecha_rec',
-        'vencimiento2',
-        'fecha_apr',
-        'retencines',
-        'fecha_pago',
-        'valor_neto',
     ];
 
     protected $fillable = [
@@ -46,18 +35,6 @@ class Factura extends Model
         'ejecutado_fecha',
         'valor_total',
         'saldo',
-        'he',
-        'valor_he',
-        'aprobado',
-        'fra',
-        'valor_fra',
-        'fecha_rec',
-        'vencimiento2',
-        'fecha_apr',
-        'retencines',
-        'fecha_pago',
-        'valor_neto',
-        
     ];
 
 

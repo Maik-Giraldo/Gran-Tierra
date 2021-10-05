@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Proveedor;
 use Session;
 use Auth;
+use App\AceptacionTicket;
+use App\FilesAceptacionTicket;
 
 class ProveedorController extends Controller
 {
@@ -90,12 +92,37 @@ class ProveedorController extends Controller
   }
   public function soldocusoporte(Request $request)
   {
-      $dataprv = Proveedor::Where('numero_nit_cc','=',Auth::user()->Nit)->get();
-      $bienesoserv = $request->input('bienes');
-      $valor_total = $request->input('valor_total');
-      foreach($dataprv as $prov){ $razon_social = $prov->nombre_razon_social;  }
-      return view('proveedor.docusuccess', compact('dataprv') ,['razon_social' => $razon_social, 'bienes' => $bienesoserv, 'valor_total' => $valor_total]);
+    AceptacionTicket::create([
+      'name' => $request->name,
+      'Nit' => Auth::user()->Nit,
+      'administrador_contrato' => $request->administrador_contrato,
+      'hoja_entrada' => $request->hoja_entrada,
+      'valor_ticket' => $request->valor_ticket,
+    ]);
+  
+    try {
+      $max_size = (int)ini_get('upload_max_filesize') * 10240;
+      
+      $files = $request->file('files');
+      
+      $destinationPath = public_path().'/docs_ticket';
+
+      foreach ($files as $file){
+        $namefile=str_random(5).$file->getClientOriginalName();
+        $file->move($destinationPath,$namefile);
+        FilesAceptacionTicket::create([
+          'nombre' => $file->getClientOriginalName(),
+          'Nit' => Auth::user()->Nit
+        ]);
+      }
+      return 'uploaded';
+
+      } catch (\Throwable $th) {
+        return $th;
+      }
   }
+
+
   public function actualizar(Request $request)
   {
     $dataprv= array_except($request->all(),'_token');

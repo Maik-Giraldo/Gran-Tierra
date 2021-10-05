@@ -17,15 +17,15 @@
       transaccion de 1 a 11 = datos de tabla principal en el siguiente orden: #HE, valor HE, aprobado, #FRA, Vlr FRA, Fecha rec, vencimiento, Fecha apr, retenciones, Fecha de pago, Vlr neto
       [
         [
-          [['ICA1', 'IVA1', 'RTF1', 'RETE ICA1', 'VALOR NETO1'], ['ICA1', 'IVA1', 'RTF1', 'RETE ICA1', 'VALOR NETO1']], 
-          ['1', 'VALOR HE1', 'APROBADO1', '#FRA1', 'VALOR FRA1','FECHA REC1', 'VENCIMIENTO1', 'FECHA APR1', 'RETENCIONES1', 'FECHA PAGO1', 'VLR NETO PAGADO1']], 
-          [ 
-            [['ICA2', 'IVA2', 'RTF2', 'RETE ICA2', 'VALOR NETO2'], ['ICA2', 'IVA2', 'RTF2', 'RETE ICA2', 'VALOR NETO2']
-          ], ['2', 'VALOR HE', 'APROBADO', '#FRA', 'VALOR FRA', 'FECHA REC', 'VENCIMIENTO', 'FECHA APR', 'RETENCIONES', 'FECHA PAGO', 'VLR NETO PAGADO']
-        ]
+          [['1.500.000', '100.000', '3.000', '40.000', '80.000', '1.000.000']], 
+          ['A', '500.000', 'S', '1', '500.000','15/02/2021', '26/03/2021', '16-Feb', '55.000', '29-Mar', '445.000']
+        ], 
       ]
     */
     function cajaPrincipal(transaccion=[], idContenedor, ejecutado_fecha){
+      if(transaccion.length == 0){
+        return;
+      };
       let docTransaccion = "";
       const contenedor = document.getElementById(`${idContenedor}`);
       contenedor.innerHTML = ""; 
@@ -210,7 +210,7 @@
             <tr>
               <th><a href="#">Sociedad</a></th>
               <th>@sortablelink('documento_compra', 'Doc compra')</th>
-              <th>@sortablelink('administrador_contacto', 'Administrador Contacto')</th>
+              <th>@sortablelink('administrador_contacto', 'Administrador Contrato')</th>
               <th>@sortablelink('valor_total', 'Valor Total')</th>
               <th>@sortablelink('fecha_emision', 'Fecha Emision')</th>
               <th>@sortablelink('vencimiento', 'Vencimiento')</th>
@@ -230,7 +230,7 @@
                   	</select>
                 </td>
                 <td><input type="text" placeholder="Documento Compra" class="form-control" name="documento_compra" maxlength="100"></td>
-                <td><input type="number" placeholder="Contacto" class="form-control" name="administrador_contacto" maxlength="100"></td>
+                <td><input type="number" placeholder="Administrador Contrato" class="form-control" name="administrador_contacto" maxlength="100"></td>
                 <td><input type="text" class="form-control" placeholder="Valor Total" name="valor_total" maxlength="155"></td>
                 <td><input type="text" placeholder="Fecha Emision" class="form-control" name="fecha_emision" title="Año-Mes-Día, o solo el año para ver las facturas de determinado año, o año-mes"/></td>
                 <td><input type="text" placeholder="Vencimiento" class="form-control" name="vencimiento" title="Año-Mes-Día, o solo el año para ver las facturas de determinado año, o año-mes"/></td>
@@ -243,6 +243,15 @@
           </thead>
           <tbody>
           
+        <script>
+          var hojaEntrada = [];
+          (function(){
+            fetch("http://127.0.0.1:8000/seguimiento-facturas-api/{{$role_id}}/{{$nit}}"
+                  ).then(x => x.json().then(y => hojaEntrada=y))
+          })();
+
+        </script>
+
         @forEach ($transacciones as $transaccion)
         <tr data-key="169">
           <td>{{$transaccion->nombre_empresa}}</td>
@@ -253,8 +262,27 @@
           <td>{{date('Y-m-d', strtotime($transaccion->vencimiento))}}</td>
           <td><div id="{{$transaccion->id}}"></div>
           <script>
-                  cajaPrincipal(transaccion = [ [ [['1.500.000', '100.000', '3.000', '40.000', '80.000', '1.000.000']], ['A', '500.000', 'S', '1', '500.000','15/02/2021', '26/03/2021', '16-Feb', '55.000', '29-Mar', '445.000']], [ [['1.500.000', '100.000', '3.000', '40.000', '80.000', '1.000.000']], ['B', '500.000', 'S', '1', '500.000','15/02/2021', '26/03/2021', '16-Feb', '55.000', '29-Mar', '445.000']]], idContenedor="{{$transaccion->id}}", ejecutado_fecha="{{$transaccion->ejecutado_fecha}}")  
-                </script>
+            eval(`var numFilas = "{{count($transacciones)}}"`);
+
+            eval(`
+            let interval_x_{{$transaccion->id}} = setInterval(() => {
+              if(hojaEntrada.length > 0){
+                let transaccion_x_{{$transaccion->id}} = [];
+                hojaEntrada.forEach(x => {
+                  if(x.id_transaccion == "{{$transaccion->id}}"){
+                  transaccion_x_{{$transaccion->id}}.push([
+                    [[x.vlr_factura, x.ica, x.iva, x.rtf, x.rtn_municipal, x.vlr_neto]],
+                    [x.he, x.valor_he, x.aprobado, x.fra, x.vlr_fra, x.fecha_rec, x.vencimiento, x.fecha_apr, x.retenciones, x.fecha_pago, x.vlr_neto_pagado, x.vlr_factura]
+                    ]);
+                  };
+                cajaPrincipal(transaccion_x_{{$transaccion->id}}, idContenedor="{{$transaccion->id}}", ejecutado_fecha="{{$transaccion->ejecutado_fecha}}");
+                transaccion_x_{{$transaccion->id}} = [];
+                clearInterval(interval_x_{{$transaccion->id}});
+                })
+              };
+            },1000);
+            `)
+          </script>
           </td>
           <td>${{number_format(floatval($transaccion->saldo),0,',','.')}}</td>
           <td><a href="{{url('seguimiento-facturas/ver-id='.$transaccion->id)}}"
@@ -275,10 +303,20 @@
 
   <!--Ancho de caja-->
   <script type="text/javascript">
-    const cajaPadre = document.getElementsByClassName("seguimiento-facturas-index");
-    const tabla = document.getElementsByClassName("dropdown-custom");
-    tabla[0].style = "transform(translateX(-100px))";
-
+   let interval_y_ = setInterval(()=>{
+     let cantidadHojasEntrada = hojaEntrada.length;
+     let tabla = document.getElementsByClassName("dropdown-custom");
+     try {
+      if(cantidadHojasEntrada != 0 && tabla.length == numFilas * 2){
+      const cajaPadre = document.getElementsByClassName("seguimiento-facturas-index");
+      tabla[0].style = "transform(translateX(-100px))";
+      repararTamanos(cajaPadre, tabla);
+      clearInterval(interval_y_);
+    };
+     } catch (error) {
+       
+     }
+   },100);
     function cambio(idTabla){
       const tabla = document.getElementById(idTabla);
       let estilo = tabla.style.display;
@@ -290,19 +328,19 @@
       };
     };
 
-    setInterval(()=>{
+    function repararTamanos(cajaPadre, tabla){
+      setInterval(()=>{
       let anchoCaja = cajaPadre[0].clientWidth;
       for(let i = 0; i < tabla.length; i++){
-        if(i%3 == 0){
+        if(i%2 == 0){
           tabla[i].style.width = `${anchoCaja - 20}px`;
           tabla[i].style.transform = `translateX(-${72.5/100*anchoCaja}px)`;
         };
       };
     },100);
-
-    
-
+    }
   </script>
+
   <style type="text/css">
     .dropdown-custom {
       position:absolute;

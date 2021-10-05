@@ -21,6 +21,7 @@ Route::get('/accionista', 'HomeController@accionista')->name('accionista');
 Route::post('/rtf', 'RtfController@downrtf')->name('downrtf');
 Route::post('/accionista', 'AccionistaController@downaccionista')->name('downaccionista');
 Route::get('/seguimiento-facturas', 'FacturaController@sgfindex')->name('sgfindex');
+Route::get('/seguimiento-facturas-api/{rol}/{nit}', 'FacturaController@apisgfindex')->name('apisgfindex'); //api
 Route::get('/historico-facturas', 'FacturaController@sgfhist')->name('sgfhist');
 Route::get('/vender-facturas', 'FacturaController@venderfacts')->name('venderfacts');
 Route::get('/facturas-en-tramite', 'FacturaController@entramite')->name('entramite');

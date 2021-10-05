@@ -9,6 +9,8 @@ use App\Ica;
 use App\Rtf;
 use App\Accionista;
 use App\Proveedor;
+use App\Factura;
+use App\HojaEntrada;
 use DB;
 use Hash;
 use App\Noticia;
@@ -207,12 +209,18 @@ class HomeController extends Controller
     }
     public function documentosoporte()
     {
-      if(Auth::user()->role_id == 4 ){
-        return redirect()->route('home');
-      } else {
-        $dataprv = Proveedor::Where('numero_nit_cc','=',Auth::user()->Nit)->get();
-        foreach($dataprv as $prov){ $razon_social = $prov->nombre_razon_social;  }
-        return view('proveedor.documentosoporte', compact('dataprv') ,['razon_social' => $razon_social]);
+      try {
+        if(Auth::user()->role_id == 4 ){
+          return redirect()->route('home');
+        } else {
+          $dataprv = User::Where('Nit','=',Auth::user()->Nit)->get();
+          $factura = Factura::Where('nit', '=', Auth::user()->Nit)->get();
+          $hojaEntrada = HojaEntrada::all();
+          foreach($dataprv as $prov){ $name = $prov->name;  }
+          return view('proveedor.documentosoporte', compact('dataprv', 'factura', 'hojaEntrada') ,['razon_social' => $name]);
+        }
+      } catch (\Throwable $th) {
+        return $th;
       }
     }
 }

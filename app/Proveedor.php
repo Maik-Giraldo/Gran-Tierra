@@ -9,7 +9,7 @@ class Proveedor extends Model
 {
   use Sortable;
   protected $table = 'proveedor';
-  protected $fillable = ['id_usuario','nombre_razon_social','nombre_comercial','representante_legal',
+  protected $fillable = ['id','nombre_razon_social','nombre_comercial','representante_legal',
                     'documento_representante_legal','contacto_pedidos','cp_telefono','contacto_contabilidad_cartera',
                     'cp_telefon2','email','numero_nit_cc','digito_verificacion','matricula_mercantil','Pass',
                     'telefono','celular','fax','ciudad','departamento','direccion','tipo','otro_tipo',

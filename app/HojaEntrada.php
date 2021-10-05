@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Factura extends Model
+class HojaEntrada extends Model
 {
     use Sortable;
     protected $table = 'hoja_entrada';
@@ -24,6 +24,12 @@ class Factura extends Model
         'retencines',
         'fecha_pago',
         'valor_neto',
+        'vlr_factura',
+        'ica',
+        'iva',
+        'rtf',
+        'rtn_municipal',
+        'vlr_neto'
     ]; 
 
     protected $fillable = [
@@ -40,6 +46,11 @@ class Factura extends Model
         'retencines',
         'fecha_pago',
         'valor_neto',
-        
+        'vlr_factura',
+        'ica',
+        'iva',
+        'rtf',
+        'rtn_municipal',
+        'vlr_neto'
     ];
 }
